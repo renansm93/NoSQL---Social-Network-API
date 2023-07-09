@@ -42,7 +42,7 @@ module.exports = {
     }
   },
 
-   // update user   
+   // update user
   async updateUser(req, res) {
     try {
       const user = await User.findOneAndUpdate(
@@ -77,19 +77,19 @@ module.exports = {
     }
   },
 
-  // add friend  
+  // add friend
   async addFriend({ params }, res) {
     try {
       const user = await User.findOneAndUpdate(
-        { _id: params.userId },        
-        { $addToSet: { friends: params.friendId } },              
+        { _id: params.userId },
+        { $addToSet: { friends: params.friendId } },
         { new: true, runValidators: true }
       )
 
       if (!user) {
         return res.status(404).json({ message: 'No user with this id!' });
       }
-      
+
       res.json(user);
 
     } catch (err) {
@@ -97,30 +97,30 @@ module.exports = {
     }
   },
 
+ // delete friend
+ async removeFriend({ params }, res) {
+  try {
+    const user = await User.findOneAndUpdate(
+      { _id: params.userId },
+      { $pull: { friends: params.friendId } },
+      { new: true}
+    )
+
+    if (!user) {
+      return res.status(404).json({ message: 'No user with this id!' });
+    }
+
+    res.json(user);
+
+  } catch (err) {
+    res.status(500).json(err);
+  }
+},
+
 };
 
 
-
-
-  // // add friend
-  // addFriend({ params }, res) {
-  //   User.findOneAndUpdate(
-  //     { _id: params.userId },
-  //     { $addToSet: { friends: params.friendId } },
-  //     { new: true, runValidators: true }
-  //   )
-  //     .then((dbUserData) => {
-  //       if (!dbUserData) {
-  //         res.status(404).json({ message: "No user with this id" });
-  //         return;
-  //       }
-  //       res.json(dbUserData);
-  //     })
-  //     .catch((err) => res.json(err));
-  // },
-
-
-
+ 
 
 
 
