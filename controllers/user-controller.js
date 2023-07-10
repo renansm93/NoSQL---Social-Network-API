@@ -1,7 +1,8 @@
 const { User, Thought } = require("../models");
 
 module.exports = {
-  // get all users
+  
+  // Get all users
   async getAllUser(req, res) {
     try {
       const users = await User.find({})
@@ -14,7 +15,7 @@ module.exports = {
     }
   },
 
-   // get user by ID
+   // Get user by ID
   async getUserById(req, res) {
     try {
       const user = await User.findOne({ _id: req.params.id })
@@ -32,7 +33,7 @@ module.exports = {
     }
   },
 
-  // create a new user
+  // Create a new user
   async createUser(req, res) {
     try {
       const user = await User.create(req.body);
@@ -42,7 +43,7 @@ module.exports = {
     }
   },
 
-   // update user
+   // Update user
   async updateUser(req, res) {
     try {
       const user = await User.findOneAndUpdate(
@@ -71,13 +72,13 @@ module.exports = {
       }
 
       await Thought.deleteMany({ _id: { $in: user.thoughts } });
-      res.json({ message: 'User and thought deleted!' });
+      res.json({ message: 'User and associated thoughts deleted!' });
     } catch (err) {
       res.status(500).json(err);
     }
   },
 
-  // add friend
+  // Add friend
   async addFriend({ params }, res) {
     try {
       const user = await User.findOneAndUpdate(
@@ -97,25 +98,25 @@ module.exports = {
     }
   },
 
- // delete friend
- async removeFriend({ params }, res) {
-  try {
-    const user = await User.findOneAndUpdate(
-      { _id: params.userId },
-      { $pull: { friends: params.friendId } },
-      { new: true}
-    )
+ // Delete friend
+  async removeFriend({ params }, res) {
+    try {
+      const user = await User.findOneAndUpdate(
+        { _id: params.userId },
+        { $pull: { friends: params.friendId } },
+        { new: true}
+      )
 
-    if (!user) {
-      return res.status(404).json({ message: 'No user with this id!' });
+      if (!user) {
+        return res.status(404).json({ message: 'No user with this id!' });
+      }
+
+      res.json(user);
+
+    } catch (err) {
+      res.status(500).json(err);
     }
-
-    res.json(user);
-
-  } catch (err) {
-    res.status(500).json(err);
-  }
-},
+  },
 
 };
 
