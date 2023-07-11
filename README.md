@@ -6,7 +6,7 @@
 [![npm](https://img.shields.io/npm/v/npm?color=orange&logo=npm)](https://www.npmjs.com/package/inquirer)
 [![license](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://choosealicense.com/licenses/mit/)
 
-MongoDB is a popular choice for many social networks due to its speed with large amounts of data and flexibility with unstructured data. Over the last part of this course, you’ll use several of the technologies that social networking platforms use in their full-stack applications. Because the foundation of these applications is data, it’s important that you understand how to build and structure the API first.
+To create a Social Network API using a NoSQL database, so that the website will handle large amounts of unstructured data; we will be able to add, update, delete and view specific information using the POST, PUT, DELETE AND GET methods. The specific information that we will be manipulating will be a user, a friend for a user, a thought for a user, a reaction for a thought. Also whenever we delete a user, their associated thoughts will do as well! 
 
 ## Table of Contents
   * [Installation](#installation)
@@ -51,9 +51,6 @@ To run the program, run the code according to the video bellow:
 **Insomnia DELETE Test:**
 
 ![Screenshot of the DELETE method with insomnia.](screenshot/DELETE.png)
-
-
-
 
 
 ## License
